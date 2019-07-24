@@ -33,13 +33,13 @@ public class sendMailApp extends HBox {
 
     enum status{
         OK, ERROR
-    };
+    }
 
 
 
 
 
-    public static void send(String from, String subject, String emailBody) throws SocketException, MessagingException {
+    public static void send(String from, String subject, String emailBody, String to) throws SocketException, MessagingException {
 
         ServerConf serverConf = new ServerConf().invoke();
         String username = serverConf.getUsername();
@@ -48,7 +48,7 @@ public class sendMailApp extends HBox {
 
         Session session = CreateSession(username, pass, prop);
 
-        messageData(from, subject, emailBody, session);
+        messageData(from, subject, emailBody, session, to);
 
 
     }
@@ -66,14 +66,14 @@ public class sendMailApp extends HBox {
 
 
 
-    private static void messageData(String from, String subject, String emailBody, Session session)  {
+    private static void messageData(String from, String subject, String emailBody, Session session, String to)  {
 //        stat_0=status.OK;
 //        stat_1=status.ERROR;
 
         try{
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("radek@pacek.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(from));
+            message.setFrom(new InternetAddress(from + "@test.com"));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
             message.setContent(emailBody, "text/html; charset=utf-8");
             Transport.send(message);
@@ -98,10 +98,10 @@ public class sendMailApp extends HBox {
 
     private static Session CreateSession(String username, String pass, Properties prop) {
         return Session.getInstance(prop, new Authenticator(){
-                protected PasswordAuthentication getPasswordAuthentication(){
-                    return new PasswordAuthentication(username,pass);
-                }
-            });
+            protected PasswordAuthentication getPasswordAuthentication(){
+                return new PasswordAuthentication(username,pass);
+            }
+        });
     }
 
 
@@ -126,13 +126,18 @@ public class sendMailApp extends HBox {
             username = "facc6bd39b36d1";
             pass = "ae99b878bc08eb";
 
+//            prop = new Properties();
+//            prop.put("mail.smtp.auth","true");
+//            prop.put("mail.smtp.starttls.enable","enable");
+//            prop.put("mail.smtp.host","smtp.mailtrap.io");
+//            prop.put("mail.smtp.port","465");
+
             prop = new Properties();
-            prop.put("mail.smtp.auth","true");
-            prop.put("mail.smtp.starttls.enable","enable");
-//        prop.put("mail.smtp.host","ntsoe010.xnet.oe.olympus");
-            prop.put("mail.smtp.host","smtp.mailtrap.io");
-            prop.put("mail.smtp.port","465");
-            prop.put("mail.smtp.authentication", "cram_md5");
+            prop.put("mail.smtp.auth","false");
+            prop.put("mail.smtp.starttls.enable","disable");
+            prop.put("mail.smtp.host","ntsoe010.xnet.oe.olympus");
+            prop.put("mail.smtp.port","25");
+            // prop.put("mail.smtp.authentication", "cram_md5");
             return this;
         }
     }

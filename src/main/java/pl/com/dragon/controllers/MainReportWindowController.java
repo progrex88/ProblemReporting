@@ -64,48 +64,48 @@ public class MainReportWindowController extends HBox {
 
     @FXML
     public void initialize() throws Exception {
-         userString = System.getProperty("user.name");
-         userID.setText(userString);
+        userString = System.getProperty("user.name");
+        userID.setText(userString);
 
-       String getComputerName=inetAddress.getCanonicalHostName();
-         computerID.setText(getComputerName);
+        String getComputerName=inetAddress.getHostName();
+        computerID.setText(getComputerName);
 
         // getComputerInfo();
+        localNetworkIP.setText(inetAddress.getHostAddress());
 
+        ArrayList<String> IPv4s= getIPv4app.getIPv4();
+        out.println(IPv4s);
 
-         ArrayList<String> IPv4s= getIPv4app.getIPv4();
-         out.println(IPv4s);
-
-     }
+    }
 
     private void getComputerInfo() throws  Exception {
-                 InetAddress inetAddress = InetAddress.getLocalHost();
+        InetAddress inetAddress = InetAddress.getLocalHost();
 
-         System.out.println("IP Address:- " + inetAddress.getCanonicalHostName());
-         System.out.println("IP Address:- " + inetAddress.getAddress());
-         System.out.println("IP Address:- " + inetAddress.getHostAddress());
-         System.out.println("Host Name:- " + inetAddress.getHostName());
+        System.out.println("IP Address:- " + inetAddress.getCanonicalHostName());
+        System.out.println("IP Address:- " + inetAddress.getAddress());
+        System.out.println("IP Address:- " + inetAddress.getHostAddress());
+        System.out.println("Host Name:- " + inetAddress.getHostName());
 
-         localNetworkIP.setText(inetAddress.getHostAddress());
+        localNetworkIP.setText(inetAddress.getHostAddress());
     }
 
     @FXML public  void onSend() throws SocketException, MessagingException,InterruptedException{
 
-                userMessage = messageID.getText();
-                messageTitle = reportTitle.getText();
-                sendStatus = sendStatusInfo.getText();
-                sendMailApp.send(userString, messageTitle, userMessage);
-                sendStatusInfo.setText("Sended");
+        userMessage = messageID.getText();
+        messageTitle = reportTitle.getText();
+        sendStatus = sendStatusInfo.getText();
+        sendMailApp.send(userString, messageTitle, userMessage, "radoslaw.pacek@olympus-europa.com");
+        sendStatusInfo.setText("Sended");
 
-      //  cleaningContent();
+        //  cleaningContent();
 
 
     }
 
     private void cleaningContent() throws InterruptedException {
-            messageID.setText("");
-            reportTitle.setText("");
-            sendStatusInfo.setText("");
+        messageID.setText("");
+        reportTitle.setText("");
+        sendStatusInfo.setText("");
     }
 
 

@@ -57,7 +57,7 @@
                <text>
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
-                  
+
                </text>
             </TextArea>
             <AnchorPane>
@@ -68,7 +68,7 @@
                </Label>
                <Button id="sendButton" fx:id="sendButton" alignment="CENTER" contentDisplay="CENTER" layoutX="349.0" layoutY="-1.0" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="64.0" onAction="#onSend" prefHeight="29.0" prefWidth="70.0" text="Send" AnchorPane.rightAnchor="0.0" />
                <Label fx:id="sendStatusInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="307.0" layoutY="1.0" minWidth="-Infinity" prefHeight="25.0" prefWidth="57.0" textAlignment="CENTER" AnchorPane.rightAnchor="73.0">
-                    </Label>
+               </Label>
                <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="-2.0" prefHeight="26.0" prefWidth="153.0" text="Your computer name:" AnchorPane.rightAnchor="257.0" />
 
             </AnchorPane>
