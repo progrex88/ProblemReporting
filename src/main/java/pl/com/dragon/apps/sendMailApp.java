@@ -18,36 +18,13 @@ import static java.lang.System.out;
 
 public class sendMailApp extends HBox {
 
-
-
-    @FXML
-    static
-    TextField reportTitle;
-
-    private static status stat_1;
-    private static status stat_0;
-    private static JLabel sendStatusInfo;
-
-//    @FXML
-//    Label sendStatusInfo;
-
-    enum status{
-        OK, ERROR
-    }
-
-
-
-
-
     public static void send(String from, String subject, String emailBody, String to) throws SocketException, MessagingException {
 
         ServerConf serverConf = new ServerConf().invoke();
         String username = serverConf.getUsername();
         String pass = serverConf.getPass();
         Properties prop = serverConf.getProp();
-
         Session session = CreateSession(username, pass, prop);
-
         messageData(from, subject, emailBody, session, to);
 
 
@@ -57,40 +34,28 @@ public class sendMailApp extends HBox {
 
 
     private static void displayInterfaceInformation(NetworkInterface netint) throws SocketException{
-
         out.printf("Dsplay name: %s \n", netint.getDisplayName());
         out.printf("Name: %s\n", netint.getName());
-
-
     }
 
 
 
     private static void messageData(String from, String subject, String emailBody, Session session, String to)  {
-//        stat_0=status.OK;
-//        stat_1=status.ERROR;
 
         try{
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from + "@test.com"));
+//            message.setFrom(new InternetAddress(from + "@olympus-europa.com"));
+            message.setFrom(new InternetAddress("radoslaw.pacek@olympus-europa.com"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
-            message.setContent(emailBody, "text/html; charset=utf-8");
+            message.addHeader(" X-OTRS-Queue=ECE", " X-OTRS-State=new");
+            message.setContent(emailBody, "text/html; charset=utf-8;");
             Transport.send(message);
-
-
-//            sendStatusInfo.setText("OK");
-
             out.println("Done");
 
 
         }catch (MessagingException e){
-
-//            sendStatusInfo.setText("ERROR");
-
-            throw new RuntimeException(e);
-
-
+            System.err.println("Can't send email. "+ e);
         }
     }
 
@@ -123,8 +88,10 @@ public class sendMailApp extends HBox {
         }
 
         public ServerConf invoke() {
-            username = "facc6bd39b36d1";
-            pass = "ae99b878bc08eb";
+            //username = "facc6bd39b36d1";
+            //pass = "ae99b878bc08eb";
+
+
 
 //            prop = new Properties();
 //            prop.put("mail.smtp.auth","true");
@@ -132,12 +99,18 @@ public class sendMailApp extends HBox {
 //            prop.put("mail.smtp.host","smtp.mailtrap.io");
 //            prop.put("mail.smtp.port","465");
 
+//            prop = new Properties();
+//            prop.put("mail.smtp.auth","false");
+//            prop.put("mail.smtp.starttls.enable","disable");
+//            prop.put("mail.smtp.host","ntsoe010.xnet.oe.olympus");
+//            prop.put("mail.smtp.port","25");
+
             prop = new Properties();
-            prop.put("mail.smtp.auth","false");
-            prop.put("mail.smtp.starttls.enable","disable");
-            prop.put("mail.smtp.host","ntsoe010.xnet.oe.olympus");
-            prop.put("mail.smtp.port","25");
-            // prop.put("mail.smtp.authentication", "cram_md5");
+            prop.put("mail.smtp.auth","true");
+            prop.put("mail.smtp.starttls.enable","true");
+            prop.put("mail.smtp.host","smtp.gmail.com");
+            prop.put("mail.smtp.port","587");
+
             return this;
         }
     }

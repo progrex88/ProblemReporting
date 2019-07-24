@@ -89,12 +89,13 @@ public class MainReportWindowController extends HBox {
         localNetworkIP.setText(inetAddress.getHostAddress());
     }
 
-    @FXML public  void onSend() throws SocketException, MessagingException,InterruptedException{
+    @FXML public  void onSend() throws SocketException, MessagingException{
 
         userMessage = messageID.getText();
         messageTitle = reportTitle.getText();
         sendStatus = sendStatusInfo.getText();
-        sendMailApp.send(userString, messageTitle, userMessage, "radoslaw.pacek@olympus-europa.com");
+        sendMailApp.send("radoslaw.pacek@olympus-europa.com", messageTitle, userMessage, "radoslaw.pacek@olympus-europa.com");
+//        sendMailApp.send(userString, messageTitle, userMessage, "radoslaw.pacek@es-europa.com");
         sendStatusInfo.setText("Sended");
 
         //  cleaningContent();
