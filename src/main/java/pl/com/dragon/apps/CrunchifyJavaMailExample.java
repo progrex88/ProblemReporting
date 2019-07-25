@@ -15,9 +15,9 @@ public class CrunchifyJavaMailExample {
     static MimeMessage generateMailMessage;
 
 
-    private static String username= "@gmail.com";
-    private static String pass="";
-    private static String host ="smtp.gmail.com";
+    private static String username= "plwaitolympus@gmail.com";
+    private static String pass="Oly123!@#";
+    private static String host ="smtp-relay.gmail.com";
 
     public static void main(String args[]) throws AddressException, MessagingException {
         generateAndSendEmail();
@@ -32,6 +32,8 @@ public class CrunchifyJavaMailExample {
         mailServerProperties.put("mail.smtp.port", "587");
         mailServerProperties.put("mail.smtp.auth", "true");
         mailServerProperties.put("mail.smtp.starttls.enable", "true");
+        mailServerProperties.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
         System.out.println("Mail Server Properties have been setup successfully..");
 
         // Step2

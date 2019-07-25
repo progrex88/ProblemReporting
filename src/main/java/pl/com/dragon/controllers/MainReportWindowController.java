@@ -94,7 +94,9 @@ public class MainReportWindowController extends HBox {
         userMessage = messageID.getText();
         messageTitle = reportTitle.getText();
         sendStatus = sendStatusInfo.getText();
-        sendMailApp.send("radoslaw.pacek@olympus-europa.com", messageTitle, userMessage, "radoslaw.pacek@olympus-europa.com");
+        String sendTo= "sup@olympus-.com";
+
+        sendMailApp.send(userString, messageTitle, userMessage, sendTo);
 //        sendMailApp.send(userString, messageTitle, userMessage, "radoslaw.pacek@es-europa.com");
         sendStatusInfo.setText("Sended");
 

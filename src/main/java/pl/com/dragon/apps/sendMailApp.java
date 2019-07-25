@@ -18,6 +18,7 @@ import static java.lang.System.out;
 
 public class sendMailApp extends HBox {
 
+
     public static void send(String from, String subject, String emailBody, String to) throws SocketException, MessagingException {
 
         ServerConf serverConf = new ServerConf().invoke();
@@ -42,10 +43,12 @@ public class sendMailApp extends HBox {
 
     private static void messageData(String from, String subject, String emailBody, Session session, String to)  {
 
+
+
         try{
             Message message = new MimeMessage(session);
-//            message.setFrom(new InternetAddress(from + "@olympus-europa.com"));
-            message.setFrom(new InternetAddress("radoslaw.pacek@olympus-europa.com"));
+            message.setFrom(new InternetAddress(from + "@olympus-europa.com"));
+//            message.setFrom(new InternetAddress("support@olympus-europa.managed-otrs.com"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
             message.addHeader(" X-OTRS-Queue=ECE", " X-OTRS-State=new");
@@ -71,9 +74,16 @@ public class sendMailApp extends HBox {
 
 
     public static class ServerConf {
-        private String username;
-        private String pass;
+
         private Properties prop;
+
+        String username = "facc6bd39b36d1";
+        String  pass = "ae99b878bc08eb";
+
+//        String username= "plwai@gmail.com";
+//        String pass="!@#";
+//        String host ="smtp.gmail.com";
+
 
         public String getUsername() {
             return username;
@@ -88,16 +98,17 @@ public class sendMailApp extends HBox {
         }
 
         public ServerConf invoke() {
-            //username = "facc6bd39b36d1";
-            //pass = "ae99b878bc08eb";
 
 
 
-//            prop = new Properties();
-//            prop.put("mail.smtp.auth","true");
-//            prop.put("mail.smtp.starttls.enable","enable");
-//            prop.put("mail.smtp.host","smtp.mailtrap.io");
-//            prop.put("mail.smtp.port","465");
+
+
+
+            prop = new Properties();
+            prop.put("mail.smtp.auth","true");
+            prop.put("mail.smtp.starttls.enable","enable");
+            prop.put("mail.smtp.host","smtp.mailtrap.io");
+            prop.put("mail.smtp.port","465");
 
 //            prop = new Properties();
 //            prop.put("mail.smtp.auth","false");
@@ -105,11 +116,14 @@ public class sendMailApp extends HBox {
 //            prop.put("mail.smtp.host","ntsoe010.xnet.oe.olympus");
 //            prop.put("mail.smtp.port","25");
 
-            prop = new Properties();
-            prop.put("mail.smtp.auth","true");
-            prop.put("mail.smtp.starttls.enable","true");
-            prop.put("mail.smtp.host","smtp.gmail.com");
-            prop.put("mail.smtp.port","587");
+
+
+
+//            prop = new Properties();
+//            prop.put("mail.smtp.auth","true");
+//            prop.put("mail.smtp.starttls.enable","true");
+//            prop.put("mail.smtp.host",host);
+//            prop.put("mail.smtp.port","587");
 
             return this;
         }
