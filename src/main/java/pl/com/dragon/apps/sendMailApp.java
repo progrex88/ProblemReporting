@@ -16,10 +16,15 @@ import java.util.Properties;
 
 import static java.lang.System.out;
 
-public class sendMailApp extends HBox {
+public abstract class sendMailApp extends HBox {
+
+    public abstract void sendOK();
+
+    public abstract void SendError();
 
 
-    public static void send(String from, String subject, String emailBody, String to) throws SocketException, MessagingException {
+
+    public void send(String from, String subject, String emailBody, String to) throws SocketException, MessagingException {
 
         ServerConf serverConf = new ServerConf().invoke();
         String username = serverConf.getUsername();
@@ -34,20 +39,20 @@ public class sendMailApp extends HBox {
 
 
 
-    private static void displayInterfaceInformation(NetworkInterface netint) throws SocketException{
+    private  void displayInterfaceInformation(NetworkInterface netint) throws SocketException{
         out.printf("Dsplay name: %s \n", netint.getDisplayName());
         out.printf("Name: %s\n", netint.getName());
     }
 
 
 
-    private static void messageData(String from, String subject, String emailBody, Session session, String to)  {
+    private  void messageData(String from, String subject, String emailBody, Session session, String to)  {
 
 
 
         try{
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from + "@olympus-europa.com"));
+            message.setFrom(new InternetAddress(from + "@oopa.com"));
 //            message.setFrom(new InternetAddress("support@olympus-europa.managed-otrs.com"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(subject);
@@ -55,16 +60,19 @@ public class sendMailApp extends HBox {
             message.setContent(emailBody, "text/html; charset=utf-8;");
             Transport.send(message);
             out.println("Done");
+            sendOK();
 
 
         }catch (MessagingException e){
             System.err.println("Can't send email. "+ e);
+            SendError();
+
         }
     }
 
 
 
-    private static Session CreateSession(String username, String pass, Properties prop) {
+    private  Session CreateSession(String username, String pass, Properties prop) {
         return Session.getInstance(prop, new Authenticator(){
             protected PasswordAuthentication getPasswordAuthentication(){
                 return new PasswordAuthentication(username,pass);
@@ -73,7 +81,7 @@ public class sendMailApp extends HBox {
     }
 
 
-    public static class ServerConf {
+    public  class ServerConf {
 
         private Properties prop;
 

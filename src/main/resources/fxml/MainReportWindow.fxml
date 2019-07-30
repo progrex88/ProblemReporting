@@ -17,9 +17,9 @@
    <top>
       <BorderPane prefHeight="60.0" prefWidth="60.0" styleClass="header-section" BorderPane.alignment="CENTER">
          <left>
-            <ImageView fitHeight="32" fitWidth="225" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <ImageView  pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
-                  <Image url="@../images/Olympus_logo_XL.jpg" />
+                  <Image url="@../images/Olympus_logo_small.jpg" />
                </image>
             </ImageView>
          </left>
